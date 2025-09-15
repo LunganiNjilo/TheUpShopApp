@@ -1,0 +1,31 @@
+.productDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+img {
+  max-width: 300px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+p {
+  margin: 0.25rem 0;
+}
+
+.backButton {
+  margin-top: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}

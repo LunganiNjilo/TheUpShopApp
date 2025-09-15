@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Vitest (all tests)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+        "test",
+        "--run",
+        "--inspect-brk",
+        "--no-threads"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Debug Vitest (specific file)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+        "test",
+        "--run",
+        "--inspect-brk",
+        "--no-threads",
+        "${input:testFile}"   // <-- dynamic input
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "testFile",
+      "type": "promptString",
+      "description": "Enter the test file to run (e.g. src/tests/cot.test.tsx)"
+    }
+  ]
+}

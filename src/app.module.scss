@@ -1,0 +1,20 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+
+  /* Push content below the fixed header */
+  padding-top: 170px; // adjust to match your header’s max height
+}
+
+.error {
+  color: red;
+  margin: 1rem;
+  text-align: center;
+}
+
+/* Add this for main content spacing below header */
+.mainContent {
+  padding-top: 8rem; /* adjust as needed based on header height */
+}
