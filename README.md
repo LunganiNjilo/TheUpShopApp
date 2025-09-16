@@ -36,7 +36,4 @@ To run the tests:
   yarn test
 ```
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=mihailgaberov/shopping-cart-app&type=Date)](https://star-history.com/#mihailgaberov/shopping-cart-app&Date)
 
