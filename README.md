@@ -26,14 +26,15 @@ To run the app:
 ```shell
   yarn dev
 ```
-
-#### Passing Tests
-![Tests](https://github.com/mihailgaberov/shopping-cart-app/blob/main/screenshots/passing-tests.png)
-
 To run the tests:
-
 ```shell
   yarn test
 ```
+#### Passing Tests
+![Tests](https://github.com/LunganiNjilo/TheUpShopApp/blob/main/screenshots/passing-tests.png)
+
+
+
+
 
 
