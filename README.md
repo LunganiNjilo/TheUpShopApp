@@ -7,8 +7,6 @@ A real-life shopping cart application built with React/Typescript/Vitest.
 - SASS / CSS Modules
 - react-testing-library / Vitest
 
-### Screenshots (animated)
-
 ### Running the app locally
 
 To run the app, follow these steps.
