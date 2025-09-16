@@ -1,7 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useLocalStorageState from 'use-local-storage-state';
-
 import { Loader } from '../Loader';
 import { CurrencyFormatter } from '../CurrencyFormatter';
 import classes from './product-details.module.scss';
@@ -20,16 +19,18 @@ export interface CartProps {
   [productId: string]: Product;
 }
 
-const API_URL =
-  import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5150/api/products';
+const API_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5000/api/products';
 
 export const ProductDetails: FunctionComponent = () => {
   const { sku } = useParams<{ sku: string }>();
   const navigate = useNavigate();
+
+  // Ensure cart is always an object to avoid TS warning
+  const [cart = {}, setCart] = useLocalStorageState<CartProps>('cart', {});
+
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [cart, setCart] = useLocalStorageState<CartProps>('cart', {});
 
   useEffect(() => {
     async function fetchProduct() {
@@ -50,17 +51,16 @@ export const ProductDetails: FunctionComponent = () => {
   const addToCart = () => {
     if (!product) return;
 
-    const productWithQty = { ...product, quantity: 1 };
     setCart((prevCart = {}) => ({
       ...prevCart,
-      [product.id]: productWithQty,
+      [product.id]: { ...product, quantity: 1 },
     }));
   };
 
   if (isLoading) return <Loader />;
   if (error || !product) return <p>Product not found.</p>;
 
-  const inCart = Boolean((cart ?? {})[product.id]);
+  const inCart = Boolean(cart[product.id]);
 
   return (
     <section className={classes.productDetails}>
@@ -71,9 +71,7 @@ export const ProductDetails: FunctionComponent = () => {
       {product.imageUrl && <img src={product.imageUrl} alt={product.name} />}
       <h2>{product.name}</h2>
       <p>SKU: {product.sku ?? 'N/A'}</p>
-      <p>
-        Price: <CurrencyFormatter amount={product.price} />
-      </p>
+      <p>Price: <CurrencyFormatter amount={product.price} /></p>
       <p>Available: {product.availableQuantity ?? 'N/A'}</p>
 
       <button

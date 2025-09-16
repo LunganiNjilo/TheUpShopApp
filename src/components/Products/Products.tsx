@@ -4,8 +4,7 @@ import { Loader } from '../Loader';
 import { CurrencyFormatter } from '../CurrencyFormatter';
 import classes from './products.module.scss';
 
-const API_URL =
-  import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5150/api/products';
+const API_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5000/api/products';
 
 export type Product = {
   id: string;
@@ -22,51 +21,42 @@ export const Products: FunctionComponent = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetchData(API_URL);
+    fetchData();
   }, []);
 
-  async function fetchData(url: string) {
+  async function fetchData() {
     try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        setProducts(Array.isArray(data) ? data : data.products ?? []);
-      } else {
-        setError(true);
-      }
-    } catch (error) {
+      const response = await fetch(API_URL);
+      if (!response.ok) throw new Error('Failed to fetch products');
+      const data = await response.json();
+      setProducts(Array.isArray(data) ? data : data.products ?? []);
+    } catch {
       setError(true);
     } finally {
       setIsLoading(false);
     }
   }
 
+  if (isLoading) return <Loader />;
   if (error)
     return (
       <h3 className={classes.error}>
         An error occurred when fetching data. Please check the API and try again.
       </h3>
     );
-  if (isLoading) return <Loader />;
 
   return (
     <section className={classes.productPage}>
       <h1>Products</h1>
-
       <div className={classes.container}>
         {products.map((product) => (
           <div className={classes.product} key={product.id}>
-            <Link
-              to={`/product/${product.sku ?? product.id}`}
-              className={classes.productLink}
-            >
-              <img src={product.imageUrl} alt={product.name} />
+            {/* Relative Link */}
+            <Link to={`/product/${product.sku ?? product.id}`} className={classes.productLink}>
+              {product.imageUrl && <img src={product.imageUrl} alt={product.name} />}
               <h3>{product.name}</h3>
             </Link>
-
-            <p>
-              Price: <CurrencyFormatter amount={product.price} />
-            </p>
+            <p>Price: <CurrencyFormatter amount={product.price} /></p>
           </div>
         ))}
       </div>
