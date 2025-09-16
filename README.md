@@ -2,6 +2,9 @@
 
 A real-life shopping cart application built with React/Typescript/Vitest.
 
+## Prerequisite
+- Make sure you follow steps 1 , 2 , 3 and 6 of the api setup : [UpShopApi](https://github.com/LunganiNjilo/UpShopApi)
+
 ## Tech stack
 - React / Typescript / Vite
 - SASS / CSS Modules
